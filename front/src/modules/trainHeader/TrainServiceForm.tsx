@@ -63,7 +63,7 @@ export default function TrainServiceForm({
 }: TrainServiceFormProps) {
   const { t } = useTranslation(['operational-studies', 'translation']);
   const { scenario } = useScenarioContext();
-  const timetableType = scenario.timetable_type;
+  const timetableType = scenario.timetable_summaries[0].type;
 
   const [extraOccurrencesVisible, setExtraOccurrencesVisible] = useState(false);
 

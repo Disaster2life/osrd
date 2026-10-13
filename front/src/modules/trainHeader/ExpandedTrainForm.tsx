@@ -263,7 +263,7 @@ const ExpandedTrainForm = ({
   const { t, i18n } = useTranslation(['operational-studies', 'translation']);
   const infraID = useInfraID();
   const { scenario } = useScenarioContext();
-  const timetableType = scenario.timetable_type;
+  const timetableType = scenario.timetable_summaries[0].type;
   const speedLimitTags = useSpeedLimitTags(infraID);
   const categoryOptions = useCategoryOptions(false);
 
@@ -273,7 +273,7 @@ const ExpandedTrainForm = ({
   const { data: linkings } = osrdEditoastApi.endpoints.postTrainSchedulesLinkings.useQuery(
     {
       body: {
-        timetable_id: scenario.timetable_id,
+        timetable_id: scenario.timetable_summaries[0].id,
         train_schedules: [extractEditoastIdFromTrainId(train.id)],
       },
     },
