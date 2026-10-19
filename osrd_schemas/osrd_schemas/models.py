@@ -1804,22 +1804,6 @@ class EditoastScenarioErrorStudyNotFound(BaseModel):
     type: Literal["editoast:scenario:StudyNotFound"] = "editoast:scenario:StudyNotFound"
 
 
-class EditoastScenarioErrorTimetableNotFoundContext(BaseModel):
-    timetable_id: int
-
-
-class EditoastScenarioErrorTimetableNotFound(BaseModel):
-    context: Annotated[
-        EditoastScenarioErrorTimetableNotFoundContext | None,
-        Field(title="EditoastScenarioErrorTimetableNotFoundContext"),
-    ] = None
-    message: str
-    status: Literal[404] = 404
-    type: Literal["editoast:scenario:TimetableNotFound"] = (
-        "editoast:scenario:TimetableNotFound"
-    )
-
-
 class EditoastSearchApiErrorObjectTypeContext(BaseModel):
     object_type: str
 
@@ -5124,7 +5108,6 @@ class EditoastError(
         | EditoastScenarioErrorInfraNotFound
         | EditoastScenarioErrorNotFound
         | EditoastScenarioErrorStudyNotFound
-        | EditoastScenarioErrorTimetableNotFound
         | EditoastSearchApiErrorObjectType
         | EditoastSearchApiErrorSearchEngineError
         | EditoastSimilarTrainsErrorDatabase
@@ -5299,7 +5282,6 @@ class EditoastError(
         | EditoastScenarioErrorInfraNotFound
         | EditoastScenarioErrorNotFound
         | EditoastScenarioErrorStudyNotFound
-        | EditoastScenarioErrorTimetableNotFound
         | EditoastSearchApiErrorObjectType
         | EditoastSearchApiErrorSearchEngineError
         | EditoastSimilarTrainsErrorDatabase
@@ -5907,7 +5889,6 @@ class Scenario(BaseModel):
     name: str
     study_id: int
     tags: list[str]
-    timetable_id: int
 
 
 class ScenarioCreateForm(BaseModel):
@@ -5934,12 +5915,6 @@ class ScenarioPatchForm(BaseModel):
     infra_id: int | None = None
     name: str | None = None
     tags: list[str] | None = None
-
-
-class ScenarioWithDetails(Scenario):
-    infra_name: str
-    timetable_type: TimetableType
-    train_schedules_count: int
 
 
 class SearchPayload(BaseModel):
@@ -6293,6 +6268,12 @@ class TimetableResult(BaseModel):
     is_train_schedule_set: bool
     timetable_id: int
     timetable_type: TimetableType
+
+
+class TimetableSummary(BaseModel):
+    id: int
+    name: str | None = None
+    type: TimetableType
 
 
 class TrackSectionExtensions(BaseModel):
@@ -7069,7 +7050,13 @@ class ScenarioResponse(Scenario):
     infra_name: str
     project: Project
     study: Study
-    timetable_type: TimetableType
+    timetable_summaries: list[TimetableSummary]
+    train_schedules_count: int
+
+
+class ScenarioWithDetails(Scenario):
+    infra_name: str
+    timetable_summaries: list[TimetableSummary]
     train_schedules_count: int
 
 
