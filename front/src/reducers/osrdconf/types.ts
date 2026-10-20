@@ -67,6 +67,7 @@ export type OsrdStdcmConfState = OsrdConfState & {
   forcedOpStops?: OperationalPointStop[];
 };
 
+//TODO rename PathStep to PathItem
 export type PathStep = {
   key: string;
   location: PathItemLocation | null;
@@ -75,6 +76,8 @@ export type PathStep = {
   theoreticalMargin: string | null;
   receptionSignal: ReceptionSignal | null;
 };
+
+export type LocatedPathStep = PathStep & { location: PathItemLocation };
 
 export type PathStepMetadata =
   | { validity: 'invalid' | 'loading'; localTrackName?: string; customTrackNames?: string[] }
