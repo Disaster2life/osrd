@@ -404,6 +404,10 @@
         }
       }
 
+      .power-restriction-disabled {
+        cursor: help;
+      }
+
       &.power-restriction-incompatible {
         background: var(--warning5);
 
