@@ -69,9 +69,9 @@ const GrantsManagerSubjects = ({
       </div>
 
       <div className="subject-list">
-        {subjects?.map(({ grant, ...subject }) => (
+        {subjects.map(({ grant, ...subject }) => (
           <GrantsManagerSubject
-            key={`${subject.id}-${grant}`}
+            key={subject.id}
             subject={subject}
             subjectGrant={grant}
             userId={userId}
