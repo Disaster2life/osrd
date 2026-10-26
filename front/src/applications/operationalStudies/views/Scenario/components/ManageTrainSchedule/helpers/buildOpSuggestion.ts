@@ -31,7 +31,7 @@ export const buildOpSuggestion = (
     const secondaryCode = r.secondary_code ?? null;
 
     if (!existing) {
-      const secondaryCodeList = [{ code: secondaryCode, opId: r.obj_id }];
+      const secondaryCodeList = [{ code: secondaryCode }];
 
       map.set(key, {
         id: key,
@@ -42,7 +42,7 @@ export const buildOpSuggestion = (
         secondaryCodeList,
       });
     } else if (!existing.secondaryCodeList.some((c) => c.code === secondaryCode)) {
-      existing.secondaryCodeList.push({ code: secondaryCode, opId: r.obj_id });
+      existing.secondaryCodeList.push({ code: secondaryCode });
     }
   }
 

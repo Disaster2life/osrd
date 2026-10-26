@@ -1,13 +1,12 @@
 import { useState } from 'react';
 
+import { NoEntry } from '@osrd-project/ui-icons';
 import cx from 'classnames';
 
 import './ListElementComponent.scss';
-import { NoEntry } from '@osrd-project/ui-icons';
 
 export type OpSecondaryCode = {
   code: string | null;
-  opId?: string;
   isCandidate?: boolean;
   isBestSuggestion?: boolean;
 };
@@ -80,7 +79,7 @@ export const ListElementComponent = ({
               onSelect?.(suggestion, secondaryCode.code);
             }}
           >
-            {secondaryCode.code ?? <NoEntry  />}
+            {secondaryCode.code ?? <NoEntry />}
           </button>
         ))}
       </div>

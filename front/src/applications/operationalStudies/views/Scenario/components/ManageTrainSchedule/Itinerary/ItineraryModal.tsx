@@ -391,18 +391,12 @@ const ItineraryModal = ({
     pendingStepKeyRef.current = stepKey;
     confirmedStepKeyRef.current = stepKey;
 
-    const opIdWithoutSecondaryCode =
-      chosenSecondaryCode === null
-        ? suggestion.secondaryCodeList.find((sc) => sc.code === null)?.opId
-        : undefined;
-    const opRef: OperationalPointReference = opIdWithoutSecondaryCode
-      ? { type: 'id', operational_point: opIdWithoutSecondaryCode }
-      : {
-          type: 'domestic',
-          main_code: suggestion.mainCode,
-          secondary_code: chosenSecondaryCode,
-          country_code: suggestion.countryCode,
-        };
+    const opRef: OperationalPointReference = {
+      type: 'domestic',
+      main_code: suggestion.mainCode,
+      secondary_code: chosenSecondaryCode,
+      country_code: suggestion.countryCode,
+    };
     const newLocation: PathItemLocation = {
       type: 'operational_point_part_reference',
       operational_point: opRef,

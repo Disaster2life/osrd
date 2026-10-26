@@ -13,7 +13,7 @@ export const secondaryCodeIncludes = (s: OperationalPointSuggestion, tokenUpper:
       secondaryCode.code !== null && toUpper(secondaryCode.code).includes(tokenUpper)
   );
 
-export const inferUniqueSecondaryCodeFromInput = (
+const inferUniqueSecondaryCodeFromInput = (
   suggestion: OperationalPointSuggestion,
   rawInput: string
 ) => {
@@ -41,10 +41,8 @@ export const inferUniqueSecondaryCodeFromInput = (
   return undefined;
 };
 
-export const hasSecondaryCodePrefix = (
-  s: OperationalPointSuggestion,
-  secondaryCodeTokenUpper: string
-) => secondaryCodeStarts(s, secondaryCodeTokenUpper);
+const hasSecondaryCodePrefix = (s: OperationalPointSuggestion, secondaryCodeTokenUpper: string) =>
+  secondaryCodeStarts(s, secondaryCodeTokenUpper);
 
 export const tokenMatchesIncludesNoCh = (s: OperationalPointSuggestion, token: string) => {
   const tokenNormalized = normalizeName(token);
@@ -104,5 +102,5 @@ export const selectSecondaryCode = (
 ) => {
   if (forcedSecondaryCode !== undefined) return forcedSecondaryCode;
   const unique = inferUniqueSecondaryCodeFromInput(suggestion, rawInput);
-  return unique ?? suggestion.secondaryCodeList[0]?.code ?? null;
+  return unique ?? suggestion.secondaryCodeList[0].code;
 };

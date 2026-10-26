@@ -19,8 +19,8 @@ import {
 } from '../helpers/searchPayload';
 import { selectSecondaryCode, shouldKeepMainCodeLock } from '../helpers/suggestionMatchers';
 import { buildOpSuggestion } from '../views/Scenario/components/ManageTrainSchedule/helpers/buildOpSuggestion';
-import { formatOpLabel } from '../views/Scenario/components/ManageTrainSchedule/Itinerary/utils';
 import type { OperationalPointSuggestion } from '../views/Scenario/components/ManageTrainSchedule/Itinerary/ComboBoxCustomList/ListElementComponent';
+import { formatOpLabel } from '../views/Scenario/components/ManageTrainSchedule/Itinerary/utils';
 
 type Params = {
   pageSize?: number;
