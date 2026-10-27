@@ -32,6 +32,9 @@
   }
 
   .subject-item {
+    display: flex;
+    align-items: center;
+
     &-icon {
       margin-right: 8px;
     }
@@ -117,12 +120,13 @@
     &-grant {
       display: flex;
       align-items: center;
+      max-width: 40%;
 
       * > .ui-select,
       * > .ui-select:focus {
         background-color: var(--white100);
         margin: 0 0 0 8px;
-        width: 136px;
+        max-width: 136px;
         height: 32px;
       }
     }
