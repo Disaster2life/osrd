@@ -12,15 +12,40 @@ import type { OpEditionState, OpEntity } from '../types';
 import { isNewOp } from '../utils';
 import OpPartList from './OpPartList';
 
-const TEXT_FIELDS = [
-  'name',
-  'secondary_name',
-  'country_code',
-  'main_code',
-  'secondary_code',
-  'plc',
-] as const;
-const REQUIRED_FIELDS = new Set(['name', 'country_code', 'main_code']);
+type OpTextFieldProps = {
+  field: 'name' | 'secondary_name' | 'country_code' | 'main_code' | 'secondary_code' | 'plc';
+  value: string | null | undefined;
+  onChange: (value: string) => void;
+  required?: boolean;
+  focus?: boolean;
+};
+
+const OpTextField = ({
+  field,
+  value,
+  onChange,
+  required = false,
+  focus = false,
+}: OpTextFieldProps) => {
+  const { t } = useTranslation();
+  return (
+    <InputSNCF
+      id={`op-${field}`}
+      type="text"
+      label={
+        <>
+          {t(`Editor.tools.op-edition.fields.${field}`)}
+          {required && <span className="required">*</span>}
+        </>
+      }
+      value={value ?? ''}
+      inputProps={{ required }}
+      whiteBG
+      focus={focus}
+      onChange={(e) => onChange(e.target.value)}
+    />
+  );
+};
 
 const OpEditionLeftPanel = () => {
   const { t } = useTranslation();
@@ -41,30 +66,41 @@ const OpEditionLeftPanel = () => {
         {isNew ? t('Editor.tools.op-edition.create-op') : t('Editor.tools.op-edition.edit-op')}
       </legend>
 
-      {TEXT_FIELDS.map((field, i) => {
-        const required = REQUIRED_FIELDS.has(field);
-        return (
-          <InputSNCF
-            key={field}
-            id={`op-${field}`}
-            type="text"
-            label={
-              <>
-                {t(`Editor.tools.op-edition.fields.${field}`)}
-                {required && <span className="required">*</span>}
-              </>
-            }
-            value={properties[field] ?? ''}
-            inputProps={{ required }}
-            whiteBG
-            focus={i === 0}
-            // Empty optional fields are saved as null (Editoast rejects a blank secondary_code)
-            onChange={(e) =>
-              updateProperties({ [field]: required ? e.target.value : e.target.value || null })
-            }
-          />
-        );
-      })}
+      {/* Empty optional fields are saved as null (Editoast rejects a blank secondary_code) */}
+      <OpTextField
+        field="name"
+        value={properties.name}
+        onChange={(name) => updateProperties({ name })}
+        required
+        focus
+      />
+      <OpTextField
+        field="secondary_name"
+        value={properties.secondary_name}
+        onChange={(value) => updateProperties({ secondary_name: value || null })}
+      />
+      <OpTextField
+        field="country_code"
+        value={properties.country_code}
+        onChange={(country_code) => updateProperties({ country_code })}
+        required
+      />
+      <OpTextField
+        field="main_code"
+        value={properties.main_code}
+        onChange={(main_code) => updateProperties({ main_code })}
+        required
+      />
+      <OpTextField
+        field="secondary_code"
+        value={properties.secondary_code}
+        onChange={(value) => updateProperties({ secondary_code: value || null })}
+      />
+      <OpTextField
+        field="plc"
+        value={properties.plc}
+        onChange={(value) => updateProperties({ plc: value || null })}
+      />
 
       <InputSNCF
         id="op-uic"
