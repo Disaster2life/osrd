@@ -66,13 +66,15 @@ function getFilterHighlighted(
   return result;
 }
 
+const NO_HIDDEN_IDS: string[] = [];
+
 type OperationalPointsProps = {
   colors: Theme;
   layerOrder: number;
   mutedLayerOrder: number;
   operationnalPointId?: string;
   highlightedArea?: Geometry;
-  hidden?: string[];
+  hiddenIds?: string[];
 };
 
 const OperationalPointsLayer = ({
@@ -81,13 +83,11 @@ const OperationalPointsLayer = ({
   mutedLayerOrder,
   operationnalPointId,
   highlightedArea,
-  hidden,
+  hiddenIds = NO_HIDDEN_IDS,
 }: OperationalPointsProps) => {
   const { infraId, highlightedOperationalPoints } = useMapContext();
 
   if (isNil(infraId)) return null;
-
-  const hiddenIds = hidden ?? [];
 
   const point: LayerProps = {
     type: 'circle',
