@@ -18,8 +18,6 @@ import type { Layer } from 'applications/editor/consts';
 import { LAYER_TO_EDITOAST_DICT, LAYERS_SET } from 'applications/editor/consts';
 import EditorContext from 'applications/editor/context';
 import { getEntity } from 'applications/editor/data/api';
-import TOOL_NAMES from 'applications/editor/tools/constsToolNames';
-import type { OpEditionState } from 'applications/editor/tools/opEdition/types';
 import useSwitchTypes from 'applications/editor/tools/switchEdition/useSwitchTypes';
 import type { CommonToolState } from 'applications/editor/tools/types';
 import type { EditorContextType, ExtendedEditorContextType, Tool } from 'applications/editor/types';
@@ -122,12 +120,11 @@ const MapUnplugged = ({
     [activeTool, extendedContext]
   );
 
-  // The OP layer is shared by all tools, so the edited OP is hidden here.
-  // The tool ID check ensures the tool state is OpEditionState:
-  const hiddenOperationalPoints =
-    activeTool.id === TOOL_NAMES.OP_EDITION
-      ? [(toolState as unknown as OpEditionState).entity.properties.id]
-      : undefined;
+  // The OP layer is shared by all tools, so each tool tells which OPs to hide:
+  const hiddenOperationalPoints = useMemo(
+    () => activeTool.getHiddenOperationalPoints?.(extendedContext),
+    [activeTool, extendedContext]
+  );
 
   const cursor = useMemo(
     () =>

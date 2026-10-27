@@ -199,6 +199,7 @@ const OpEditionTool: Tool<OpEditionState> = {
 
   getInteractiveLayers: () => [TRACKS_LAYER_ID, PARTS_LAYER_ID],
   getEventsLayers: () => [TRACKS_LAYER_ID, PARTS_LAYER_ID],
+  getHiddenOperationalPoints: ({ state }) => [state.entity.properties.id],
   layersComponent: OpEditionLayers,
   leftPanelComponent: OpEditionLeftPanel,
   messagesComponent: OpEditionMessages,
