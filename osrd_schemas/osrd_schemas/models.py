@@ -5902,7 +5902,7 @@ class ScenarioCreateForm(BaseModel):
     name: str
     study_id: int
     tags: list[str] | None = None
-    timetable_id: int
+    timetable_ids: list[int] | None = None
 
 
 class ScenarioPatchForm(BaseModel):
