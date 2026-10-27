@@ -115,12 +115,7 @@ const OpPartItem = ({ part, index }: { part: OperationalPointPart; index: number
             <InputSNCF
               id={getPartFieldId(index, 'local_track_name')}
               type="text"
-              label={
-                <>
-                  {t('Editor.tools.op-edition.part-fields.local_track_name')}
-                  <span className="required">*</span>
-                </>
-              }
+              label={`${t('Editor.tools.op-edition.part-fields.local_track_name')} *`}
               value={part.local_track_name}
               inputProps={{ required: true }}
               whiteBG
@@ -182,8 +177,7 @@ const OpPartList = () => {
   return (
     <div className="mt-4 pt-4 border-top">
       <h4 className="pb-2">
-        <RiPinDistanceLine /> {t('Editor.tools.op-edition.parts')}{' '}
-        <span className="required">*</span>
+        <RiPinDistanceLine /> {t('Editor.tools.op-edition.parts')} *
       </h4>
       {parts.length === 0 ? (
         <p className="text-muted text-center">{t('Editor.tools.op-edition.no-parts')}</p>

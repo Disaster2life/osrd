@@ -35,7 +35,7 @@ const OpTextField = ({
       label={
         <>
           {t(`Editor.tools.op-edition.fields.${field}`)}
-          {required && <span className="required">*</span>}
+          {required && ' *'}
         </>
       }
       value={value ?? ''}
