@@ -317,11 +317,11 @@ const MapUnplugged = ({
 
           {editorState.mapSettings.layersSettings.operational_points && (
             <OperationalPointsLayer
+              key={context.renderingFingerprint}
               colors={colors[mapStyle]}
               layerOrder={LAYER_GROUPS_ORDER[LAYERS.OPERATIONAL_POINTS.GROUP]}
               mutedLayerOrder={LAYER_GROUPS_ORDER[LAYERS.MUTED_OPERATIONAL_POINTS.GROUP]}
               hidden={hiddenOperationalPoints}
-              fingerprint={context.renderingFingerprint}
             />
           )}
 
