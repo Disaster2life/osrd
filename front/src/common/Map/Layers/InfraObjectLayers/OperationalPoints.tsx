@@ -20,7 +20,7 @@ import {
 } from '../commonLayers';
 import OrderedLayer from '../OrderedLayer';
 import type { LayerProps } from '../types';
-import { adaptFilter } from './GeoJSONs';
+import { adaptFilter } from './adaptFilter';
 
 function getColorByHighlighted(data: {
   highlightedArea?: Geometry;
