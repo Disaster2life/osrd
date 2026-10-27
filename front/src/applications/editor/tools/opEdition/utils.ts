@@ -58,7 +58,8 @@ export function canSaveOp({ properties }: OpEntity): boolean {
 // Returns the part index if the feature is a rendered part, null otherwise
 export function getFeaturePartIndex(feature?: MapGeoJSONFeature): number | null {
   if (feature?.layer.id !== PARTS_LAYER_ID) return null;
-  return (feature as unknown as OpPartFeature).properties.partIndex;
+  const { partIndex } = feature.properties;
+  return typeof partIndex === 'number' ? partIndex : null;
 }
 
 export function getPartFeatures(
