@@ -189,7 +189,7 @@ test.describe('Itinerary modal validation ', { tag: ['@op', '@itinerary-modal'] 
     });
 
     await test.step('Remove the prefilled secondary code and check the fallback behavior', async () => {
-      await itineraryModalPage.clearChValue(1, SOUTH_STATION);
+      await itineraryModalPage.fillPathStepValueAndBlur(1, SOUTH_STATION);
       await itineraryModalPage.checkPathStepValue(1, SOUTH_STATION_BV);
     });
 
@@ -216,7 +216,7 @@ test.describe('Itinerary modal validation ', { tag: ['@op', '@itinerary-modal'] 
 
     await test.step('Select an incompatible track for a valid PR and check the point stays recognized while the route becomes invalid', async () => {
       await itineraryModalPage.selectIncompatibleTrack(0, TRACK_NAME_2);
-      await itineraryModalPage.checkMapIncompatibilityDetails(
+      await itineraryModalPage.checkMissingBlock(
         `${frManageTrainScheduleTranslations.pathfindingErrors.not_found_in_blocks}. ${frManageTrainScheduleTranslations.itineraryModal.noComputation}.`
       );
       await itineraryModalPage.checkPathStepValue(1, SOUTH_STATION_BV);
@@ -266,6 +266,9 @@ test.describe('Itinerary modal validation ', { tag: ['@op', '@itinerary-modal'] 
       ]);
       await itineraryModalPage.fillRollingStock(IMPROBABLE_RS);
       await itineraryModalPage.checkRollingStock(IMPROBABLE_RS);
+      await itineraryModalPage.checkMissingBlock(
+        `${frManageTrainScheduleTranslations.pathfindingErrors.incompatible_constraints}. ${frManageTrainScheduleTranslations.itineraryModal.noComputation}.`
+      );
     });
   });
 
@@ -288,7 +291,7 @@ test.describe('Itinerary modal validation ', { tag: ['@op', '@itinerary-modal'] 
       await itineraryModalPage.createTrain();
       await itineraryModalPage.checkTrainPresenceInTimetable(TRAIN_NAME);
     });
-    await test.step('Replace with a coherent rolling stock and check the warning disappears', async () => {
+    await test.step('Replace with a coherent rolling stock category and check the warning disappears', async () => {
       await itineraryModalPage.launchEditTrain();
       await itineraryModalPage.checkIncompatibleCategoryWarning(
         frManageTrainScheduleTranslations.categoryMismatch
