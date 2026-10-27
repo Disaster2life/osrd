@@ -1,5 +1,3 @@
-import { useEffect, useState } from 'react';
-
 import type { Geometry } from 'geojson';
 import { isNil } from 'lodash';
 import type {
@@ -75,7 +73,6 @@ type OperationalPointsProps = {
   operationnalPointId?: string;
   highlightedArea?: Geometry;
   hidden?: string[];
-  fingerprint?: string | number;
 };
 
 const OperationalPointsLayer = ({
@@ -85,20 +82,10 @@ const OperationalPointsLayer = ({
   operationnalPointId,
   highlightedArea,
   hidden,
-  fingerprint,
 }: OperationalPointsProps) => {
   const { infraId, highlightedOperationalPoints } = useMapContext();
 
-  const [skipSource, setSkipSource] = useState(true);
-  useEffect(() => {
-    /* eslint-disable-next-line react/set-state-in-effect */
-    setSkipSource(true);
-    const timeout = setTimeout(() => setSkipSource(false), 0);
-    return () => clearTimeout(timeout);
-    /* oxlint-disable-next-line react/exhaustive-effect-dependencies */
-  }, [fingerprint]);
-
-  if (isNil(infraId) || skipSource) return null;
+  if (isNil(infraId)) return null;
 
   const hiddenIds = hidden ?? [];
 
